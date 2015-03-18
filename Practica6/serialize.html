@@ -1,0 +1,31 @@
+<form id="miForm" action="/peticion.php">
+    <input name="cajaTexto" type="value" value="" />
+    <input type="submit" value="Enviar" />
+</form>
+//selector sobre el form seguido de la función submit
+$("#miForm").submit(function(){
+        //de esta manera remplazamos
+ 
+        //ahora obtendremos los atributos que necesitaremos
+        url=$(this).prop("action")
+        //la función serialize nos regresa los input, es importante ponerles name
+        parametros=$(this).serialize()
+ 
+        //aqui utilizamos la petición, en este caso post
+        $.post(url,parametros,function(data){
+            //aqui es cuando ya se hizo nuestra petición
+            //regularmente yo regreso 1 para mostrar exito
+                if(data="1"){
+                    alert("exito")
+                }else{
+                    //si no regreso el 1, regreso el error y asi lo muestro
+                    alert(data)
+                }
+        })
+ 
+        //ESTO ES MUY IMPORTANTE, YA QUE SI NO SE PONE SE REALIZA LAS DOS PETICIONES
+        //TANTO AJAX COMO LA PETICIÓN NORMAL DE FORMULARIO
+        //REFRESCANDO TODA LA PAGINA.
+        return false;
+ 
+})
